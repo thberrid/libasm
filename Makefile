@@ -6,7 +6,7 @@
 #    By: thberrid <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/01 22:59:58 by thberrid          #+#    #+#              #
-#    Updated: 2021/02/19 15:02:09 by user42           ###   ########.fr        #
+#    Updated: 2021/02/19 16:16:06 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ CC	= gcc
 DIR_S 	= sources
 DIR_O	= obj
 DIR_H	= includes
-NAME_S	= test_s.s \
-			ft_strlen.s
+NAME_S	= 	ft_strlen.s \
+			ft_strcpy.s
 NAME_O	= $(NAME_S:.s=.o)
 NAME_H	= libasm.h
 FILES_S	= $(addprefix $(DIR_S)/, $(NAME_S))
