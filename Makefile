@@ -10,43 +10,49 @@
 #                                                                              #
 # **************************************************************************** #
 
+#nasm -f elf64 test.s
+#ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 -m elf_x86_64 test.o -lc
+
 SHELL	= /bin/sh
-NAME	= test
+NAME	= libasm.a
+AR 		= ar rc
 DIR_C 	= sources
 DIR_O	= obj
 DIR_H	= includes
-NAME_C	= main.c \
-			malloc.c
+NAME_C	= test.s
 NAME_O	= $(NAME_C:.c=.o)
-NAME_H	= malloc.h
+NAME_H	= libasm.h
 FILES_C	= $(addprefix $(DIR_C)/, $(NAME_C))
 FILES_O	= $(addprefix $(DIR_O)/, $(NAME_O))
 FILES_H	= $(addprefix $(DIR_H)/, $(NAME_H))
 LIBFT	= ./libft/libft.a
-FLAGS	= -Wall -Wextra -Werror -g3
+FLAGS_NASM	= -f elf64
+FLAGS_LD	= -dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc
+FLAGS_C	= -Wall -Wextra -Werror -g3
 
+
+.PHONY: all
 all : $(NAME)
 
-$(NAME) : $(FILES_O) $(FILES_H) $(LIBFT)
-	$(CC) -I ./$(DIR_H) -I ./libft/includes/ $(FILES_O) -L ./libft/ -lft -o $(NAME)
-#	gcc -fsanitize=address -I ./$(DIR_H) -I ./libft/includes -L ./libft/ -lft -o $(NAME) $(FILES_O)
+$(NAME) : $(FILES_O)
+	$(AR) $@ $^
+	ranlib $@
  
-$(DIR_O)/%.o : $(DIR_C)/%.c $(FILES_H)
+$(DIR_O)/%.o : $(DIR_C)/%.s $(FILES_H)
 	@ mkdir -p $(DIR_O)
-	gcc -I ./$(DIR_H) -I ./libft/includes/ $(FLAGS) -c -o $@ $<
-#	gcc $(FLAGS) -fsanitize=address -I ./$(DIR_H) -I ./libft/includes -c -o $@ $<
+	nasm $(NASM_FLAGS) -o $@ $<
+	ld -o $@ $< $(FLAGS_LD)
 
-$(LIBFT) :
-	make -C ./libft/
+test : $(name)
+
 
 .PHONY : clean
 clean :
 	rm -f $(FILES_O)
-	make -C ./libft fclean
 
 .PHONY : fclean
 fclean : clean
-	rm -f $(NAME)
+	rm -f $(NAME) test
 
 .PHONY : re
 re : fclean all

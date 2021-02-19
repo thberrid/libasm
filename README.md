@@ -27,10 +27,10 @@ EIP		current instruction
 
 EF		Flags
 
-EAX		fn's return value, set before sys call INT
+RAX		fn's return value, set before sys call INT
 		for example :
 		MOV EAX 4	; setting syscall for write, NB that 1 is for exit
-		INT	0x80	; interrupting, we will call EAX syscode
+		syscall	; interrupting, we will call EAX syscode
 EBX		P1
 ECX		P2
 EDX		P3
@@ -54,7 +54,7 @@ MOV 	A, B	; copy B -> A
 ADD		A, B
 SUB		A, B
 
-PUSH	value	; increment ESP, then copy value INTO ESP
+PUSH	value	; increment ESP, then copy value at (*ESP)
 POP 	EAX		; copy (*ESP) to EAX, then decrement ESP
 
 
