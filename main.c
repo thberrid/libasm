@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libasm.h                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thberrid <thberrid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/19 09:54:00 by thberrid          #+#    #+#             */
-/*   Updated: 2021/02/19 15:40:33 by user42           ###   ########.fr       */
+/*   Created: 2021/02/19 14:08:33 by user42            #+#    #+#             */
+/*   Updated: 2021/02/19 16:00:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include <libasm.h>
+#include <stdio.h>
 
-int    	test(int a);
-size_t	ft_strlen(const char *s);
+int	main(int ac, char **av)
+{
+	(void)ac;
+	printf("ft_len :%ld\n", strlen(av[1]));
+	printf("len :%ld\n", ft_strlen(av[1]));
+	return (0);
+}
