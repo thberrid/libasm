@@ -12,54 +12,73 @@ start:
 	call _main
 	ret
 
-push	rbp
-mov		rbp, rsp
-sub		rsp, 16
-mov		RDI, 
-
 registers
 
-EBP		base : adresse de retour de la procedure n-1
-ESP		pile : address of current stack 
+RBP		base pointer : adresse de retour de la procedure n-1
+RSP		stack pointer : address of current stack 
+		points to the bottom of current fn stack frame
+		local variables are accessed relative to it.
+RIP		instruction pointer : current instruction. changed by JMP
 
-EIP		current instruction
-	changed by JMP
+RFLAGS	Flags
 
-EF		Flags
+RAX		fn's return value
+		also passed to syscall, so
+		MOV RAX, 4	; setting syscall for write, NB that 1 is for exit
+		SYSCALL		; interrupting, we will call RAX syscode
+RBX		?
+RDI		P1
+RSI		P2
+RDX		P3 + 2nd return register
+RCX		P4
+R8		P5
+R9		P6
+R10		? passing static chain pointer
 
-RAX		fn's return value, set before sys call INT
-		for example :
-		MOV EAX 4	; setting syscall for write, NB that 1 is for exit
-		syscall	; interrupting, we will call EAX syscode
-EBX		P1
-ECX		P2
-EDX		P3
+XMM0-15	floating values
 
-Stack goes from MAX to 0, so 
-	PUSH nValue 
-	is like 
-	SUB ESP, 4
-	MOV [ESP], dword nValue
-Also
-	POP EAX
-	equal to
-	MOV EAX, dword [ESP]
-	ADD ESP, 4
-Also also
-	SUB ESP, 4 	; means we allocated 4 bytes on the stack	
+RAX----------------------	64b	
+			EAX----------	32b
+					AX---	16b
+					AH|AL	8b|8b
+
+Stack goes from MAX to 0
+MAX				0	
+[STACK **** | **** HEAP|DATA]
+so
+SUB RSP, 4 	; means we allocated 4 bytes on the stack	
+ADD RSP, 4	; deallocation  
 
 instructions code
 
 MOV 	A, B	; copy B -> A
+LEA
 ADD		A, B
 SUB		A, B
 
-PUSH	value	; increment ESP, then copy value at (*ESP)
-POP 	EAX		; copy (*ESP) to EAX, then decrement ESP
+PUSH	value	; SUB RSP, 8
+				; MOV [RSP], qword nValue
+POP 	RAX		; MOV RAX, qword [RSP]
+				; ADD RSP, 8
+JMP		RAX		; MOV RIP, RAX
+
+CALL	_label	; PUSH	RIP
+				; JUMP	_label
+RET				; POP 	RIP
+				; JUMP	RSP
+
+ENTER			; PUSH RBP
+				; MOV RBP, RSP
+				; SUB RSP, size
+LEAVE			; MOV RSP, RBP
+				; POP RBP
 
 
-CALL	_fn		; PUSH EIP to stack, then JUMP
-RET				; is equal to
-					POP 	EAX
-					JUMP	EAX
+directive de donnees
+x86
+b	1 byte	8bits
+w	1 word 	16bits
+d	2w		32bits
+q	4w		64bits	
+
 
