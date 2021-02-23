@@ -12,17 +12,18 @@
 
 #include <libasm.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int	main(int ac, char **av)
 {
 	(void)ac;
-//	(void)av;
+	(void)av;
 //	printf("%ld\n", sizeof(size_t));
 //	sytrlen
 //	printf("ft_len :%ld\n", strlen(av[1]));
 //	printf("len :%ld\n", ft_strlen(av[1]));
-
-/*	strcpy
+/*
+//	strcpy
 	char cpy[1024];
 	char cpy2[1024];
 	char *ret = &cpy[0];
@@ -36,9 +37,18 @@ int	main(int ac, char **av)
 	printf("offic  cpy : %s\n", cpy2);
 */
 
+/*
 //	strcmp
 	printf("official %d\n", strcmp(av[1], av[2]));
 	printf("custom   %d\n", ft_strcmp(av[1], av[2]));
+*/
+
+	size_t ret;
+	
+	ret = ft_write(14, "lol\n", 4);
+	printf("ret / errno : %ld / %d\n", ret, errno);
+	ret = write(14, "lol", 4);
+	printf("ret / errno : %ld / %d\n", ret, errno);
 	
 	return (0);
 }

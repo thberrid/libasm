@@ -22,7 +22,9 @@ DIR_O	= obj
 DIR_H	= includes
 NAME_S	= 	ft_strlen.s \
 			ft_strcpy.s \
-			ft_strcmp.s
+			ft_strcmp.s \
+			ft_write.s	\
+			ft_read.s
 NAME_O	= $(NAME_S:.s=.o)
 NAME_H	= libasm.h
 FILES_S	= $(addprefix $(DIR_S)/, $(NAME_S))
