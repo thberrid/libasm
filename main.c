@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 14:08:33 by user42            #+#    #+#             */
-/*   Updated: 2021/02/22 16:43:33 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/23 12:41:31 by thberrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 int	main(int ac, char **av)
 {
 	(void)ac;
-
+//	(void)av;
+//	printf("%ld\n", sizeof(size_t));
 //	sytrlen
 //	printf("ft_len :%ld\n", strlen(av[1]));
 //	printf("len :%ld\n", ft_strlen(av[1]));
@@ -38,7 +39,6 @@ int	main(int ac, char **av)
 //	strcmp
 	printf("official %d\n", strcmp(av[1], av[2]));
 	printf("custom   %d\n", ft_strcmp(av[1], av[2]));
-
 	
 	return (0);
 }

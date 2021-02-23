@@ -2,17 +2,18 @@ section .text
 	global ft_strcmp
 
 ft_strcmp:
-	xor eax, eax
+	xor rax, rax
+	xor rbx, rbx
 loop:
-	mov eax, byte [rsi]
-	mov ebx, byte [rdi]
-	sub eax, esi
-	cmp byte [eax], 0
+	mov al, byte [rdi]
+	mov bl, byte [rsi]
+	sub rax, rbx
+	cmp rax, 0
 	jne end
-	cmp byte [edi], 0
-	je end
-	cmp byte [esi], 0
-	je end
+	cmp byte [rdi], 0
+	je 	end
+	cmp byte [rsi], 0
+	je 	end
 	add rdi, 1
 	add rsi, 1
 	jmp loop
