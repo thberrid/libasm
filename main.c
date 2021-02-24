@@ -6,13 +6,17 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 14:08:33 by user42            #+#    #+#             */
-/*   Updated: 2021/02/23 12:41:31 by thberrid         ###   ########.fr       */
+/*   Updated: 2021/02/24 10:53:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libasm.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 
 int	main(int ac, char **av)
 {
@@ -43,12 +47,28 @@ int	main(int ac, char **av)
 	printf("custom   %d\n", ft_strcmp(av[1], av[2]));
 */
 
+/*
+	// write
 	size_t ret;
 	
 	ret = ft_write(14, "lol\n", 4);
 	printf("ret / errno : %ld / %d\n", ret, errno);
 	ret = write(14, "lol", 4);
 	printf("ret / errno : %ld / %d\n", ret, errno);
+*/
+
+	// read
 	
+	char buf[1024];
+	int fd = open("README.md", O_RDONLY);
+	int ret = ft_read(fd, &buf, 24);
+	printf("ret, errno, str: %d, %d, %s\n", ret, errno, buf);
+	fd = open("README.mi", O_RDONLY);
+	ret = ft_read(fd, &buf, 24);
+	printf("ret, errno, str: %d, %d, %s\n", ret, errno, buf);
+	char buf2[1024];
+	int fd2 = open("README.mi", O_RDONLY);
+	int ret2 = read(fd2, &buf2, 24);
+	printf("ret, errno, str : %d, %d, %s\n", ret2, errno, buf2);
 	return (0);
 }
