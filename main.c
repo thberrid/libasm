@@ -6,77 +6,51 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 14:08:33 by user42            #+#    #+#             */
-/*   Updated: 2021/02/24 11:41:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/24 14:15:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libasm.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 
+void	test(char *a)
+{
+	char	*str;
+	char	buf[32];
+	int		fd_src;
+	int		fd_dst;
+
+	str = ft_strdup(a);
+	fd_src = open("sources/ft_strdup.s", O_RDONLY);
+	fd_dst = open("output.txt", O_CREAT|O_RDWR|O_APPEND, 0777);
+	ft_read(fd_src, buf, 32);
+	buf[31] = '\0';
+	ft_write(fd_dst, str, ft_strlen(str));
+	ft_write(2, str, ft_strlen(str));
+	ft_write(2, "\n", 1);
+	ft_write(fd_dst, buf, 32);
+	ft_write(2, buf, 32);
+	ft_write(2, "\n", 1);
+	close(fd_src);
+	close(fd_dst);
+	free(str);
+}
 
 int	main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-//	printf("%ld\n", sizeof(size_t));
-//	sytrlen
-//	printf("ft_len :%ld\n", strlen(av[1]));
-//	printf("len :%ld\n", ft_strlen(av[1]));
-/*
-//	strcpy
-	char cpy[1024];
-	char cpy2[1024];
-	char *ret = &cpy[0];
+	int		i;
 
-	printf("virgin cpy : %s\n", cpy);
-	printf("sent value     %p\n", ret);
-	ret = ft_strcpy(cpy, av[1]);
-	printf("returned value %p\n", ret);
-	printf("final  cpy : %s\n", cpy);
-	strcpy(cpy2, av[1]);
-	printf("offic  cpy : %s\n", cpy2);
-*/
-
-/*
-//	strcmp
-	printf("official %d\n", strcmp(av[1], av[2]));
-	printf("custom   %d\n", ft_strcmp(av[1], av[2]));
-*/
-
-/*
-	// write
-	size_t ret;
-	
-	ret = ft_write(14, "lol\n", 4);
-	printf("ret / errno : %ld / %d\n", ret, errno);
-	ret = write(14, "lol", 4);
-	printf("ret / errno : %ld / %d\n", ret, errno);
-*/
-/*
-	// read
-	
-	char buf[1024];
-	int fd = open("README.md", O_RDONLY);
-	int ret = ft_read(fd, &buf, 24);
-	printf("ret, errno, str: %d, %d, %s\n", ret, errno, buf);
-	fd = open("README.mi", O_RDONLY);
-	ret = ft_read(fd, &buf, 24);
-	printf("ret, errno, str: %d, %d, %s\n", ret, errno, buf);
-	char buf2[1024];
-	int fd2 = open("README.mi", O_RDONLY);
-	int ret2 = read(fd2, &buf2, 24);
-	printf("ret, errno, str : %d, %d, %s\n", ret2, errno, buf2);
-*/
-
-	// strdup
-	char *s = NULL;
-	s = ft_strdup("ono !");
-	printf("errno, s : %d\n%s", errno, s);
-//	free((void**)&s);
+	if (ac == 1)
+		return (ft_write(1, "usage:./test s\n", ft_strlen("usage:./test s\n")));
+	i = 0;
+	while (i < 5)
+	{
+		test(av[1]);
+		i += 1;
+	}
+	ft_write(1, "output.tst written\n", ft_strlen("output.tst written\n"));
 	return (0);
 }

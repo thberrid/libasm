@@ -1,5 +1,4 @@
 section .text
-	extern __errno_location
 	extern malloc
 	extern ft_strcpy
 	extern ft_strlen

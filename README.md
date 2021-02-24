@@ -1,21 +1,5 @@
 # libasm
 
-***structure***
-
-section .data
-hello:
-		.string db "ok", 10 		; 10 is for \n
-		.len equ $ - hello.string	; the len is the diff between "here" and the previous address
-section .text
-		global _start
-		global main
-
-start:
-	call _main
-	ret
-
----
-
 ***registers***
 
 ```
@@ -31,7 +15,7 @@ RAX		fn's return value
 		also passed to syscall, so
 		MOV RAX, 4	; setting syscall for write, NB that 1 is for exit
 		SYSCALL		; interrupting, we will call RAX syscode
-RBX		?
+RBX		generic
 RDI		P1
 RSI		P2
 RDX		P3 + 2nd return register
@@ -91,8 +75,7 @@ LEAVE			; MOV RSP, RBP
 				; POP RBP
 ```
 
-directive de donnees
-x86
+***directive de donnees x86***
 ```
 b	1 byte	8bits
 w	1 word 	16bits
@@ -100,7 +83,7 @@ d	2w		32bits
 q	4w		64bits	
 ```
 
-***debbuging tips***
+***debbuging***
 ```
 gdb --args test arg1 arg2 ...
 break ft_fn
