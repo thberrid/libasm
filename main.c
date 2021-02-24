@@ -6,13 +6,14 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 14:08:33 by user42            #+#    #+#             */
-/*   Updated: 2021/02/24 10:53:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/24 11:41:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libasm.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -56,7 +57,7 @@ int	main(int ac, char **av)
 	ret = write(14, "lol", 4);
 	printf("ret / errno : %ld / %d\n", ret, errno);
 */
-
+/*
 	// read
 	
 	char buf[1024];
@@ -70,5 +71,12 @@ int	main(int ac, char **av)
 	int fd2 = open("README.mi", O_RDONLY);
 	int ret2 = read(fd2, &buf2, 24);
 	printf("ret, errno, str : %d, %d, %s\n", ret2, errno, buf2);
+*/
+
+	// strdup
+	char *s = NULL;
+	s = ft_strdup("ono !");
+	printf("errno, s : %d\n%s", errno, s);
+//	free((void**)&s);
 	return (0);
 }

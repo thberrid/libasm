@@ -6,7 +6,7 @@
 #    By: thberrid <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/01 22:59:58 by thberrid          #+#    #+#              #
-#    Updated: 2021/02/22 16:35:32 by user42           ###   ########.fr        #
+#    Updated: 2021/02/24 10:57:17 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ NAME_S	= 	ft_strlen.s \
 			ft_strcpy.s \
 			ft_strcmp.s \
 			ft_write.s	\
-			ft_read.s
+			ft_read.s 	\
+			ft_strdup.s
 NAME_O	= $(NAME_S:.s=.o)
 NAME_H	= libasm.h
 FILES_S	= $(addprefix $(DIR_S)/, $(NAME_S))
