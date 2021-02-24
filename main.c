@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 14:08:33 by user42            #+#    #+#             */
-/*   Updated: 2021/02/24 14:15:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/24 14:31:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ void	test(char *a)
 	char	buf[32];
 	int		fd_src;
 	int		fd_dst;
+	size_t	read;
 
 	str = ft_strdup(a);
 	fd_src = open("sources/ft_strdup.s", O_RDONLY);
 	fd_dst = open("output.txt", O_CREAT|O_RDWR|O_APPEND, 0777);
-	ft_read(fd_src, buf, 32);
+	read = ft_read(fd_src, buf, 32);
 	buf[31] = '\0';
 	ft_write(fd_dst, str, ft_strlen(str));
 	ft_write(2, str, ft_strlen(str));
 	ft_write(2, "\n", 1);
-	ft_write(fd_dst, buf, 32);
-	ft_write(2, buf, 32);
+	ft_write(fd_dst, buf, read);
+	ft_write(2, buf, read);
 	ft_write(2, "\n", 1);
 	close(fd_src);
 	close(fd_dst);
