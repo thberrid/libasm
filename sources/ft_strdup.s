@@ -37,8 +37,7 @@ ft_strdup:
 
 	pop		rax						; retrieve dst, is RAX
 
+end:
 	mov		rsp, rbp
 	pop		rbp
-
-end:
 	ret

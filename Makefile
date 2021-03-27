@@ -48,8 +48,7 @@ $(DIR_O)/%.o: $(DIR_S)/%.s $(FILES_H)
 	nasm $(FLAGS_NASM) -o $@ $<
 
 test : $(NAME) main.c
-	$(CC) $(FLAGS_CC) -I./$(DIR_H) -L $(NAME) -c -o $(DIR_O)/test.o main.c
-	$(CC) -I./$(FILES_H) -o test $(FILES_O) $(DIR_O)/test.o
+	$(CC) $(FLAGS_CC) main.c -I ./$(DIR_H) -L . -lasm -o test
 
 .PHONY : clean
 clean :
