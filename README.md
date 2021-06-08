@@ -104,4 +104,4 @@ set $rax = 0
 
 `gcc -S file.s`
 
-list syscall # `ausyscall --dump`
+list syscalls # `ausyscall --dump` (auditd packages)
