@@ -99,4 +99,8 @@ next
 info register rax	; i r for all
 x/s 0xaddr
 set $rax = 0
+
+or 
+
+gcc -S file.s 
 ```
