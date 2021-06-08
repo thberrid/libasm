@@ -1,31 +1,32 @@
 # libasm
 
-***registers***
+[some ressources / intro](https://software.intel.com/content/dam/develop/external/us/en/documents/introduction-to-x64-assembly-181178.pdf)
+
+***some registers***
+
+[List of registers (page 21)](https://uclibc.org/docs/psABI-x86_64.pdf)
 
 ```
-RBP		base pointer : adresse de retour de la procedure n-1
-RSP		stack pointer : address of current stack 
-		points to the bottom of current fn stack frame
-		local variables are accessed relative to it.
-RIP		instruction pointer : current instruction. changed by JMP
+RBP		base pointer : address of previous stack
+RSP		stack pointer : points to the bottom of current stack frame
 
-RFLAGS	Flags
+RFLAGS		Flags (CF, PF, ZF, ...)
 
 RAX		fn's return value
 		also passed to syscall, so
 		MOV RAX, 4	; setting syscall for write, NB that 1 is for exit
 		SYSCALL		; interrupting, we will call RAX syscode
-RBX		generic
+
 RDI		P1
 RSI		P2
 RDX		P3 + 2nd return register
 RCX		P4
 R8		P5
 R9		P6
-R10		? passing static chain pointer
-XMM0-15	floating values
 
 ```
+
+[8-bits registers](https://stackoverflow.com/questions/20637569/assembly-registers-in-64-bit-architecture/20637866#20637866)
 
 ```
 RAX----------------------   64b	
@@ -47,31 +48,37 @@ so
 SUB RSP, 4 	; means we allocated 4 bytes on the stack	
 ADD RSP, 4	; deallocation  
 ```
+
+You can deferre a register using `[]`
+
 ---
 
 ***instructions codes***
 
 ```
-MOV 	A, B	; copy B -> A
-LEA
-ADD		A, B
-SUB		A, B
+MOV 	A, B			; copy B -> A
+LEA	A, B
+ADD	A, B
+SUB	A, B
 
-PUSH	value	; SUB RSP, 8
+PUSH	value|register		; SUB RSP, 8
 				; MOV [RSP], qword nValue
-POP 	RAX		; MOV RAX, qword [RSP]
+				
+POP 	register		; MOV RAX, qword [RSP]
 				; ADD RSP, 8
-JMP		RAX		; MOV RIP, RAX
 
-CALL	_label	; PUSH	RIP
+JMP	RAX			; MOV RIP, RAX
+
+CALL	_label			; PUSH	RIP
 				; JUMP	_label
+
 RET				; POP 	RIP
 				; JUMP	RSP
 
-ENTER			; PUSH RBP
+ENTER				; PUSH RBP
 				; MOV RBP, RSP
-				; SUB RSP, size
-LEAVE			; MOV RSP, RBP
+
+LEAVE				; MOV RSP, RBP
 				; POP RBP
 ```
 
@@ -90,6 +97,6 @@ break ft_fn
 run
 next
 info register rax	; i r for all
-x/s	0xaddr
+x/s 0xaddr
 set $rax = 0
 ```
