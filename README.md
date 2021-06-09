@@ -10,6 +10,8 @@
 RBP		base pointer : address of previous stack
 RSP		stack pointer : points to the bottom of current stack frame
 
+RIP		address of next instruction
+
 RFLAGS		Flags (CF, PF, ZF, ...)
 
 RAX		fn's return value
