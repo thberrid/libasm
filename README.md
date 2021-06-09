@@ -84,10 +84,11 @@ LEAVE				; MOV RSP, RBP
 
 ***directive de donnees x86***
 ```
-b	1 byte	8bits
-w	1 word 	16bits
-d	2w		32bits
-q	4w		64bits	
+define ...
+db	1 byte	8bits
+dw	1 word 	16bits
+dd	2 w	32bits
+dq	4 w	64bits	
 ```
 
 ***debbuging***
@@ -102,6 +103,6 @@ set $rax = 0
 ```
 ***NB*** 
 
-`gcc -S file.s`
+`gcc -S -masm=intel file.s`
 
 list syscalls # `ausyscall --dump` (auditd packages)
